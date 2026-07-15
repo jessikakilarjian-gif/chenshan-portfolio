@@ -304,7 +304,7 @@ export default function Home() {
             title="儿童洗护视觉"
             category="品牌视觉 / 产品场景"
             processImage="kids-care-process.jpg"
-            finalImage="kids-care-final.png"
+            finalImage="kids-care-final.jpg"
             description="把产品放入明亮的度假场景，用柔和材质与童趣元素传递安全、轻松的品牌感受。"
           />
         </div>

@@ -38,7 +38,7 @@ export async function generateMetadata(): Promise<Metadata> {
       locale: "zh_CN",
       images: [
         {
-          url: `${origin}/og.png`,
+          url: `${origin}/og.jpg`,
           width: 1792,
           height: 1024,
           alt: "陈珊 3D × AI 视觉设计师作品集",
@@ -49,7 +49,7 @@ export async function generateMetadata(): Promise<Metadata> {
       card: "summary_large_image",
       title,
       description,
-      images: [`${origin}/og.png`],
+      images: [`${origin}/og.jpg`],
     },
   };
 }
