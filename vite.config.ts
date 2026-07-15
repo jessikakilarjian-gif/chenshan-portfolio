@@ -34,6 +34,24 @@ const localBindingConfig = {
 };
 
 export default defineConfig(async () => {
+  const isVercelBuild =
+    process.env.VERCEL === "1" || process.env.NITRO_PRESET === "vercel";
+
+  if (isVercelBuild) {
+    const [{ default: tailwindcss }, { nitro }] = await Promise.all([
+      import("@tailwindcss/vite"),
+      import("nitro/vite"),
+    ]);
+
+    return {
+      plugins: [
+        vinext(),
+        tailwindcss(),
+        nitro({ output: { dir: ".output" } }),
+      ],
+    };
+  }
+
   // Keep Wrangler and Miniflare state project-local. These are non-secret tool
   // settings; application environment belongs in ignored `.env*` files.
   process.env.WRANGLER_WRITE_LOGS ??= "false";
