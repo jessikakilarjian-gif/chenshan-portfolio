@@ -36,6 +36,7 @@ const localBindingConfig = {
 export default defineConfig(async () => {
   const isVercelBuild =
     process.env.VERCEL === "1" || process.env.NITRO_PRESET === "vercel";
+  const isGitHubPages = process.env.GITHUB_PAGES === "true";
 
   if (isVercelBuild) {
     const [{ default: tailwindcss }, { nitro }] = await Promise.all([
@@ -58,6 +59,7 @@ export default defineConfig(async () => {
   const { cloudflare } = await import("@cloudflare/vite-plugin");
 
   return {
+    base: isGitHubPages ? "/chenshan-portfolio/" : undefined,
     server: isCodexSeatbeltSandbox
       ? { watch: { useFsEvents: false, usePolling: true } }
       : undefined,

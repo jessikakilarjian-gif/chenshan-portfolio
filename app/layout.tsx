@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import { headers } from "next/headers";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -18,18 +17,30 @@ const description =
   "陈珊的设计作品集：十年三维设计经验，专注 C4D、AI 融合创意、产品视觉与动态设计。";
 
 export async function generateMetadata(): Promise<Metadata> {
-  const requestHeaders = await headers();
-  const host = requestHeaders.get("x-forwarded-host") ?? requestHeaders.get("host");
-  const protocol = requestHeaders.get("x-forwarded-proto") ?? "https";
-  const origin = host ? `${protocol}://${host}` : "http://localhost:3000";
+  const isGitHubPages = process.env.GITHUB_PAGES === "true";
+  let origin =
+    "https://jessikakilarjian-gif.github.io/chenshan-portfolio";
+
+  if (!isGitHubPages) {
+    const { headers } = await import("next/headers");
+    const requestHeaders = await headers();
+    const host =
+      requestHeaders.get("x-forwarded-host") ?? requestHeaders.get("host");
+    const protocol = requestHeaders.get("x-forwarded-proto") ?? "https";
+    origin = host ? `${protocol}://${host}` : "http://localhost:3000";
+  }
+
+  const iconPath = isGitHubPages
+    ? "/chenshan-portfolio/favicon.svg"
+    : "/favicon.svg";
 
   return {
     metadataBase: new URL(origin),
     title,
     description,
     icons: {
-      icon: "/favicon.svg",
-      shortcut: "/favicon.svg",
+      icon: iconPath,
+      shortcut: iconPath,
     },
     openGraph: {
       title,
